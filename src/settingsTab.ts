@@ -27,6 +27,7 @@ export class ObsidianReadwiseSettingsTab extends PluginSettingTab {
         this.headerTemplatePath();
         this.highlightTemplatePath();
         this.notificationSettings();
+        this.apiServerSetting();
 	}
 
     apiTokenSetting() {
@@ -147,6 +148,18 @@ export class ObsidianReadwiseSettingsTab extends PluginSettingTab {
                 .setValue(this.plugin.settings.disableNotifications)
                 .onChange(async (value) => {
                     this.plugin.settings.disableNotifications = value;
+                    await this.plugin.saveSettings();
+            }));
+    }
+
+    apiServerSetting() {
+        new Setting(this.containerEl)
+            .setName('Readwise API server')
+            .setDesc('Location of Readwise API server')
+            .addText(text => text
+                .setValue(this.plugin.settings.apiServer)
+                .onChange(async (value) => {
+                    this.plugin.settings.apiServer = value;
                     await this.plugin.saveSettings();
             }));
     }

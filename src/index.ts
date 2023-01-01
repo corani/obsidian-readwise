@@ -155,7 +155,7 @@ export default class ObsidianReadwisePlugin extends Plugin {
             }
         }
 
-        this.api = new ReadwiseApi(token, new DateFactory());
+        this.api = new ReadwiseApi(token, new DateFactory(), this.settings.apiServer);
         return true
     }
 

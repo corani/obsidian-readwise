@@ -7,10 +7,14 @@ import type { IDateFactory } from "src/date";
 export class ReadwiseApi {
     private token: string;
     private dateFactory: IDateFactory;
+    private apiServer: string = "https://readwise.io";
 
-    constructor(token: string, factory: IDateFactory) {
+    constructor(token: string, factory: IDateFactory, apiServer:string) {
         this.token = token;
         this.dateFactory = factory;
+        if (apiServer && (apiServer.length > 0)) {
+            this.apiServer = apiServer;
+        }
     }
 
     async getDocumentsWithHighlights(
@@ -49,7 +53,7 @@ export class ReadwiseApi {
         since?: number,
         to?: number
     ): Promise<Result<Document[], Error>> {
-        let url = `https://readwise.io/api/v2/books/`;
+        let url = this.apiServer.concat(`/api/v2/books/`);
         const params = {
             page_size: "1000",
         };
@@ -107,7 +111,7 @@ export class ReadwiseApi {
         since?: number,
         to?: number
     ): Promise<Result<Highlight[], Error>> {
-        let url = "https://readwise.io/api/v2/highlights/";
+        let url = this.apiServer.concat("api/v2/highlights/");
 
         const params = {
             page_size: "1000",

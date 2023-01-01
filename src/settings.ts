@@ -7,6 +7,7 @@ export interface ObsidianReadwiseSettings {
     highlightStoragePath: string;
     highlightTemplatePath: string;
     authorsMappingFilename: string;
+    apiServer: string;
 }
 
 export class ObsidianReadwiseSettingsGenerator {
@@ -24,6 +25,7 @@ export class ObsidianReadwiseSettingsGenerator {
             highlightTemplatePath: "",
             highlightStoragePath: "",
             authorsMappingFilename: "authors.json",
+            apiServer: "https://readwise.io",
             lastUpdate: Date.now()
         }
     }

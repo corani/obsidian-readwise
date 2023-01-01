@@ -34,6 +34,10 @@ describe("Settings", () => {
 
         it('intervalSync is set to zero', () => {
             assert.equal(settings.autoSyncInterval, 0);
+        });
+
+        it('apiServer is Readwise', () => {
+            assert.equal(settings.apiServer, "https://readwise.io");
         })
     });
 
@@ -46,7 +50,8 @@ describe("Settings", () => {
                 syncOnBoot: true,
                 headerTemplatePath: 'Hello World',
                 highlightTemplatePath: 'Good Bye',
-                disableNotifications: true
+                disableNotifications: true,
+                apiServer: 'http://example.com'
             });
         });
 
@@ -72,6 +77,10 @@ describe("Settings", () => {
 
         it('overrides the autoSyncInterval field', () => {
             assert.equal(settings.autoSyncInterval, 3);
-        })
+        });
+
+        it('overrides the apiServer field', () => {
+            assert.equal(settings.apiServer, "http://example.com");
+        });
     });
 })
