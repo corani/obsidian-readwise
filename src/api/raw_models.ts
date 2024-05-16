@@ -16,5 +16,6 @@ export interface IHighlight {
     note: string;
     url: string;
     location: number;
+    chapter: string;
     updated: string;
 }

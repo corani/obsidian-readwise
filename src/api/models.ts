@@ -36,6 +36,7 @@ export class Highlight {
     public note: string;
     public url: string;
     public location: number;
+    public chapter: string;
     public updated: string;
 
     constructor(raw: IHighlight) {
@@ -45,6 +46,7 @@ export class Highlight {
         this.text = raw.text;
         this.url = raw.url;
         this.location = raw.location;
+        this.chapter = raw.chapter;
         this.updated = raw.updated;
     }
 
