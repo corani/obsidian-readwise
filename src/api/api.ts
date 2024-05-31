@@ -111,7 +111,7 @@ export class ReadwiseApi {
         since?: number,
         to?: number
     ): Promise<Result<Highlight[], Error>> {
-        let url = this.apiServer.concat("api/v2/highlights/");
+        let url = this.apiServer.concat("/api/v2/highlights/");
 
         const params = {
             page_size: "1000",
