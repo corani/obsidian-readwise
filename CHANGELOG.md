@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.10-rc2](https://github.com/corani/obsidian-readwise/tree/0.0.10-rc2) (2024-05-31)
+
+**Merged pull requests:**
+
+- fix: incorrect highlights url [\#1](https://github.com/corani/obsidian-readwise/pull/1) ([corani](https://github.com/corani))
+
 ## [0.0.10-rc1](https://github.com/corani/obsidian-readwise/tree/0.0.10-rc1) (2024-05-16)
 
 
