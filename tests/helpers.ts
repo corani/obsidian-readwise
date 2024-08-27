@@ -6,14 +6,22 @@ const fs = require('fs');
 const path = require('path');
 
 export function fileSystemHandler(): IFileSystemHandler {
+    let written = new Map<string, string>();
+
     return {
         normalizePath: (path: string) => path,
         read: async (path: string) => {
+            if (written.has(path)) {
+                return written.get(path);
+            }
+
             return fs.readFileSync(path).toString();
         },
-        write: async (path: string) => {},
+        write: async (path, content: string) => {
+            written.set(path, content);
+        },
         exists: async (path: string) => true,
-        pluginsDir: () => resolvePathToData("plugins")
+        pluginsDir: () => resolvePathToData("plugins"),
     }
 }
 
