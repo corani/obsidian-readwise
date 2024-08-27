@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.10-rc3](https://github.com/corani/obsidian-readwise/tree/0.0.10-rc3) (2024-08-27)
+
+**Closed issues:**
+
+- Map titles, similar to authors [\#5](https://github.com/corani/obsidian-readwise/issues/5)
+- Possibility to define an "insert point" in the notes page [\#4](https://github.com/corani/obsidian-readwise/issues/4)
+- Render `updated` as a date rather than a timestamp [\#3](https://github.com/corani/obsidian-readwise/issues/3)
+- Strip newlines from highlights/notes [\#2](https://github.com/corani/obsidian-readwise/issues/2)
+
+**Merged pull requests:**
+
+- feat: define custom insert point for highlights [\#8](https://github.com/corani/obsidian-readwise/pull/8) ([corani](https://github.com/corani))
+- feat: map titles, similar to authors [\#7](https://github.com/corani/obsidian-readwise/pull/7) ([corani](https://github.com/corani))
+- feat: add nunjucks-date-filter to format dates [\#6](https://github.com/corani/obsidian-readwise/pull/6) ([corani](https://github.com/corani))
+
 ## [0.0.10-rc2](https://github.com/corani/obsidian-readwise/tree/0.0.10-rc2) (2024-05-31)
 
 **Merged pull requests:**
