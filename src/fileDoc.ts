@@ -1,5 +1,3 @@
-import type nunjucks from "nunjucks";
-
 import type { Document } from './api/models';
 import Log from "./log";
 import type { IFileSystemHandler } from './fileSystem';

@@ -9,10 +9,10 @@ export class ReadwiseApi {
     private dateFactory: IDateFactory;
     private apiServer: string = "https://readwise.io";
 
-    constructor(token: string, factory: IDateFactory, apiServer:string) {
+    constructor(token: string, factory: IDateFactory, apiServer: string) {
         this.token = token;
         this.dateFactory = factory;
-        if (apiServer && (apiServer.length > 0)) {
+        if (apiServer && apiServer.length > 0) {
             this.apiServer = apiServer;
         }
     }
