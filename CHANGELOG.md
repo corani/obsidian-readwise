@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.10-rc4](https://github.com/corani/obsidian-readwise/tree/0.0.10-rc4) (2024-08-27)
+
+**Merged pull requests:**
+
+- fix: nunjucks-date not included in dist [\#9](https://github.com/corani/obsidian-readwise/pull/9) ([corani](https://github.com/corani))
+
 ## [0.0.10-rc3](https://github.com/corani/obsidian-readwise/tree/0.0.10-rc3) (2024-08-27)
 
 **Closed issues:**
