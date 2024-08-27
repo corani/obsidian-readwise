@@ -126,6 +126,7 @@ describe("HighlightTemplateRenderer", () => {
         highlight = new Highlight({
             id: 10,
             book_id: 5,
+            chapter: "chapter",
             text: "Looks important. It's super <great>",
             note: "It really looks important. Can't wait for it",
             url: 'https://readwise.io',
@@ -165,6 +166,14 @@ Note: It really looks important. Can't wait for it
 
         assert.equal(await templateRenderer.render(highlight), `Looks important. It's super <great> \`highlight_id: 10\` %% location: 1 %%
 Note: It really looks important. Can't wait for it %% 2020-04-06T12:30:52.318552Z %%
+`);
+    });
+
+    it('formats the updated field as part of the highlight', async () => {
+        let templateRenderer = await HighlightTemplateRenderer.create(resolvePathToData('templates/highlights/Format Date'), handler);
+
+        assert.equal(await templateRenderer.render(highlight), `Looks important. It's super <great> \`highlight_id: 10\` %% location: 1 %%
+Note: It really looks important. Can't wait for it %% 2020-04-06 %%
 `);
     });
 });

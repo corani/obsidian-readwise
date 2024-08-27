@@ -7,6 +7,7 @@ export class TemplateLoader {
     private path: string;
     private fsHandler: IFileSystemHandler;
     private templateType: ITemplateType;
+    private dateFilter;
 
     constructor(
         path: string,
@@ -16,12 +17,19 @@ export class TemplateLoader {
         this.path = path;
         this.fsHandler = fsHandler;
         this.templateType = templateType;
+        this.dateFilter = require("nunjucks-date-filter");
+
+        this.dateFilter.setDefaultFormat("YYYY-MM-DD");
     }
 
     async load(): Promise<nunjucks.Template> {
         let content = await this.selectTemplate();
 
-        let env = nunjucks.configure({ autoescape: false });
+        let env = nunjucks.configure({
+            autoescape: false,
+        });
+
+        env.addFilter("date", this.dateFilter);
 
         return nunjucks.compile(content, env);
     }
