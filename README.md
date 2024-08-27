@@ -82,11 +82,11 @@ If the custom highlight template doesn't include `highlight_id: <id>`, then this
 
 **Note:** You can find examples of custom templates under [tests/data](./tests/data) folder.
 
-### Mapping of Authors
+### Mapping of Authors and Titles
 
-On plugin load, an `authors.json` file will be created (if not present), under the `obsidian-readwise` plugin folder (`.obsidian/plugins/obsidian-readwise`). There you can define mappings for Readwise author's field value. **This will be applied only during the creation of new notes**
+On plugin load, an `authors.json` and `titles.json` file will be created (if not present), under the `obsidian-readwise` plugin folder (`.obsidian/plugins/obsidian-readwise`). There you can define mappings for Readwise author's field value. **This will be applied only during the creation of new notes**
 
-Example mapping:
+Example author mapping:
 
 ```json
 {
@@ -98,6 +98,16 @@ Example mapping:
 ```
 
 The above mapping will be applied during the sync process for highlights from a new source (e.g a new article, book, tweets).
+
+Example title mapping:
+
+```json
+{
+    "The New Puritans: How the Religion of Social Justice Captured the Western World": "The New Puritans"
+}
+```
+
+The above mapping will be used to determine the filename of the note. If the title of the note is found in the mapping, it will be replaced with the value in the mapping.
 
 ### Settings
 

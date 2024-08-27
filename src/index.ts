@@ -14,6 +14,7 @@ import { FileSystemHandler } from "./fileSystem";
 import { DateFactory } from "./date";
 import PromiseQueue from "./promiseQueue";
 import { AuthorsMapping } from "./authorsMapping";
+import { TitlesMapping } from "./titlesMapping";
 
 
 export default class ObsidianReadwisePlugin extends Plugin {
@@ -26,6 +27,7 @@ export default class ObsidianReadwisePlugin extends Plugin {
     private mode: AppMode;
     private promiseQueue: PromiseQueue;
     private authorsMapping: AuthorsMapping;
+    private titlesMapping: TitlesMapping;
 
 
     setState(state: PluginState) {
@@ -56,6 +58,9 @@ export default class ObsidianReadwisePlugin extends Plugin {
 
         this.authorsMapping = new AuthorsMapping(this.settings.authorsMappingFilename, new FileSystemHandler(this.app.vault));
         await this.authorsMapping.initialize();
+
+        this.titlesMapping = new TitlesMapping(this.settings.titlesMappingFilename, new FileSystemHandler(this.app.vault));
+        await this.titlesMapping.initialize();
 
 		if (this.settings.syncOnBoot) {
 			await this.syncReadwise(this.settings.lastUpdate);
@@ -124,11 +129,15 @@ export default class ObsidianReadwisePlugin extends Plugin {
         const handler = new FileSystemHandler(this.app.vault);
         const header = await HeaderTemplateRenderer.create(this.settings.headerTemplatePath, handler);
         const highlight = await HighlightTemplateRenderer.create(this.settings.highlightTemplatePath, handler);
-        const mapping = await this.authorsMapping.load();
+        const authorMapping = await this.authorsMapping.load();
+        const titleMapping = await this.titlesMapping.load();
 
         documents.forEach(doc => {
-            if (mapping.has(doc.author)) {
-                doc.author = mapping.get(doc.author);
+            if (authorMapping.has(doc.author)) {
+                doc.author = authorMapping.get(doc.author);
+            }
+            if (titleMapping.has(doc.title)) {
+                doc.title = titleMapping.get(doc.title);
             }
             const fileDoc = new FileDoc(doc, header, highlight, handler);
 
