@@ -2,7 +2,7 @@ import "mocha";
 import { assert } from "chai";
 import { FileDoc } from '../src/fileDoc';
 import { HeaderTemplateRenderer, HighlightTemplateRenderer } from "../src/template";
-import { fileSystemHandler } from "./helpers";
+import { fileSystemHandler, resolvePathToData } from "./helpers";
 
 describe("File Doc", () => {
     const handler = fileSystemHandler();
@@ -16,7 +16,7 @@ describe("File Doc", () => {
                 title: "Hello_Worl'd-",
                 author: 'Rene Hernandez',
                 num_highlights: 2,
-                highlights: null,
+                highlights: [],
                 source_url: '',
                 updated: "2021-03-18",
                 highlights_url: '',
@@ -82,7 +82,7 @@ describe("File Doc", () => {
                 title: "Hello World",
                 author: 'Rene Hernandez',
                 num_highlights: 2,
-                highlights: null,
+                highlights: [],
                 source_url: '',
                 updated: "2021-03-18",
                 highlights_url: '',
@@ -106,5 +106,101 @@ describe("File Doc", () => {
             assert.equal(fileDoc.preparePath('foo/bar/'), "foo/bar/Hello World.md");
         });
 
+    });
+
+    context('createOrUpdate', () => {
+        it('inserts at insert point', async () => {
+            let fileDoc = new FileDoc({
+                    id: 1,
+                    title: "Insert Point",
+                    author: 'Rene Hernandez',
+                    num_highlights: 2,
+                    highlights: [{
+                        id: 10,
+                        book_id: 5,
+                        chapter: "chapter",
+                        text: "Looks important. It's super <great>",
+                        note: "It really looks important. Can't wait for it",
+                        url: 'https://readwise.io',
+                        location: 1,
+                        updated: "2020-04-06T12:30:52.318552Z"
+                    }],
+                    source_url: '',
+                    updated: "2021-03-18",
+                    highlights_url: '',
+                    category: 'article'
+                },
+                await HeaderTemplateRenderer.create(null, handler),
+                await HighlightTemplateRenderer.create(null, handler),
+                handler
+            );
+            let note = resolvePathToData('notes');
+            
+            await fileDoc.createOrUpdate(note);
+            assert.equal(await handler.read(note+"/Insert Point.md"), `# Title
+
+Some text
+
+# Notes
+
+Existing notes
+
+Looks important. It's super <great> %% highlight_id: 10 %%
+Note: It really looks important. Can't wait for it
+
+%% highlight_insert_point %%
+
+# Resources
+
+Some links
+`);
+        });
+
+        it('appends when no insert point', async () => {
+            let fileDoc = new FileDoc({
+                    id: 1,
+                    title: "No Insert Point",
+                    author: 'Rene Hernandez',
+                    num_highlights: 2,
+                    highlights: [{
+                        id: 10,
+                        book_id: 5,
+                        chapter: "chapter",
+                        text: "Looks important. It's super <great>",
+                        note: "It really looks important. Can't wait for it",
+                        url: 'https://readwise.io',
+                        location: 1,
+                        updated: "2020-04-06T12:30:52.318552Z"
+                    }],
+                    source_url: '',
+                    updated: "2021-03-18",
+                    highlights_url: '',
+                    category: 'article'
+                },
+                await HeaderTemplateRenderer.create(null, handler),
+                await HighlightTemplateRenderer.create(null, handler),
+                handler
+            );
+            let note = resolvePathToData('notes');
+            
+            await fileDoc.createOrUpdate(note);
+            assert.equal(await handler.read(note+"/No Insert Point.md"), `# Title
+
+Some text
+
+# Notes
+
+Existing notes
+
+# Resources
+
+Some links
+
+
+Looks important. It's super <great> %% highlight_id: 10 %%
+Note: It really looks important. Can't wait for it
+
+`);
+        });
     });
 });

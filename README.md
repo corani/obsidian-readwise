@@ -82,6 +82,16 @@ If the custom highlight template doesn't include `highlight_id: <id>`, then this
 
 **Note:** You can find examples of custom templates under [tests/data](./tests/data) folder.
 
+### Custom insert point
+
+By default, new highlights are appended to the end of the note. If you want to customize where the highlights are inserted, you can add the following snippet to your note:
+
+```markdown
+%% highlight_insert_point %%
+```
+
+This will cause new highlights to be inserted at this location in the note.
+
 ### Mapping of Authors and Titles
 
 On plugin load, an `authors.json` and `titles.json` file will be created (if not present), under the `obsidian-readwise` plugin folder (`.obsidian/plugins/obsidian-readwise`). There you can define mappings for Readwise author's field value. **This will be applied only during the creation of new notes**
