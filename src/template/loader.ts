@@ -1,5 +1,6 @@
 import type { IFileSystemHandler } from "src/fileSystem";
 import nunjucks from "nunjucks";
+import { default as nunjucks_date } from "nunjucks-date";
 import Log from "../log";
 import type { ITemplateType } from "./templateTypes";
 
@@ -17,7 +18,7 @@ export class TemplateLoader {
         this.path = path;
         this.fsHandler = fsHandler;
         this.templateType = templateType;
-        this.dateFilter = require("nunjucks-date-filter");
+        this.dateFilter = nunjucks_date;
 
         this.dateFilter.setDefaultFormat("YYYY-MM-DD");
     }
@@ -29,7 +30,7 @@ export class TemplateLoader {
             autoescape: false,
         });
 
-        env.addFilter("date", this.dateFilter);
+        this.dateFilter.install(env);
 
         return nunjucks.compile(content, env);
     }
